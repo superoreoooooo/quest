@@ -119,7 +119,7 @@ public class v1_12_R1 {
 
         worldServer.addEntity(entityPlayer);
 
-        entityPlayer.getBukkitEntity().setMetadata("npc", new FixedMetadataValue(Main.getPlugin(), NPCPlayer.getName()));
+        entityPlayer.getBukkitEntity().setMetadata("quest", new FixedMetadataValue(Main.getPlugin(), NPCPlayer.getName()));
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), entityPlayer::playerTick, 1, 1);
 

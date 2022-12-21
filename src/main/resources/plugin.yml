@@ -3,9 +3,6 @@ version: '${project.version}'
 main: win.oreo.quest.Main
 author: superoreo
 commands:
+  qnpc:
   questnpc:
-    aliases:
-      - qnpc
   quest:
-    aliases:
-      - q
