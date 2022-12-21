@@ -1,0 +1,4 @@
+name: Quest
+version: '${project.version}'
+main: win.oreo.quest.Quest
+author: superoreo
