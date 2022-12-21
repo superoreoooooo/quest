@@ -13,7 +13,7 @@ public class QuestNpc {
         this.questMap = questMap;
     }
 
-    public String getNpcName() {
+    public String getQuestName() {
         return npcName;
     }
 

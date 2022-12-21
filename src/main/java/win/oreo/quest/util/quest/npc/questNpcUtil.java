@@ -2,6 +2,7 @@ package win.oreo.quest.util.quest.npc;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import win.oreo.quest.Main;
+import win.oreo.quest.util.npc.NPCPlayer;
 import win.oreo.quest.util.quest.Quest;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class questNpcUtil {
     public void saveAllQuestNpc() {
         for (QuestNpc npc : questNpcList) {
             for (int i = 0; i < npc.getQuestMap().size(); i++) {
-                plugin.questYml.getConfig().set("npc." + npc.getNpcName() + ".list." + i, npc.getQuestMap().get(i).getQuestID().toString());
+                plugin.questYml.getConfig().set("npc." + npc.getQuestName() + ".list." + i, npc.getQuestMap().get(i).getQuestID().toString());
             }
-            plugin.questYml.getConfig().set("npc." + npc.getNpcName() + ".count", npc.getQuestMap().size());
+            plugin.questYml.getConfig().set("npc." + npc.getQuestName() + ".count", npc.getQuestMap().size());
             plugin.questYml.saveConfig();
         }
     }
@@ -70,7 +71,7 @@ public class questNpcUtil {
 
     public QuestNpc getQuestNpc(String npcName) {
         for (QuestNpc questNpc : questNpcList) {
-            if (questNpc.getNpcName().equals(npcName)) {
+            if (questNpc.getQuestName().equals(npcName)) {
                 return questNpc;
             }
         }

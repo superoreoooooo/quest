@@ -108,15 +108,25 @@ public final class Main extends JavaPlugin {
         this.ymlManager = new npcYmlManager(this);
         this.questYml = new questYml(this);
 
-        initializeQuest();
-        initializeQuestNpc();
         initializeNPC();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.spigot().setCollidesWithEntities(false);
         }
 
+        run();
+
         Bukkit.getConsoleSender().sendMessage("load complete!");
+    }
+
+    public void run() {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                initializeQuest();
+                initializeQuestNpc();
+            }
+        }, 20);
     }
 
     @Override
@@ -157,7 +167,7 @@ public final class Main extends JavaPlugin {
             }
             QuestNpc npc = new QuestNpc(name, map);
             questNpcUtil.questNpcList.add(npc);
-            Bukkit.getConsoleSender().sendMessage("loaded| name : " + npc.getNpcName() + " list : " + npc.getQuestMap().toString());
+            Bukkit.getConsoleSender().sendMessage("loaded| name : " + npc.getQuestName() + " list : " + npc.getQuestMap().toString());
         }
     }
 
