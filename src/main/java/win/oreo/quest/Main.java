@@ -6,15 +6,22 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import win.oreo.quest.command.npc.npcCommand;
 import win.oreo.quest.command.npc.npcCompleter;
+import win.oreo.quest.command.quest.questCommand;
+import win.oreo.quest.command.quest.questCompleter;
 import win.oreo.quest.listener.npc.DeathListener;
 import win.oreo.quest.listener.npc.PreLoginListener;
 import win.oreo.quest.listener.npc.playerMovementListener;
 import win.oreo.quest.manager.npcYmlManager;
+import win.oreo.quest.manager.questYml;
 import win.oreo.quest.util.Color;
 import win.oreo.quest.util.npc.NPCPlayer;
+import win.oreo.quest.util.quest.Quest;
+import win.oreo.quest.util.quest.questType;
+import win.oreo.quest.util.quest.questUtil;
 import win.oreo.quest.version.Version;
 
 import java.util.ArrayList;
@@ -27,6 +34,7 @@ public final class Main extends JavaPlugin {
 
     public FileConfiguration config;
     public npcYmlManager ymlManager;
+    public questYml questYml;
 
     private boolean usesPaper = false;
     private boolean updatedPaper = false;
@@ -77,6 +85,8 @@ public final class Main extends JavaPlugin {
 
         getCommand("questnpc").setExecutor(new npcCommand());
         getCommand("questnpc").setTabCompleter(new npcCompleter());
+        getCommand("quest").setExecutor(new questCommand());
+        getCommand("quest").setTabCompleter(new questCompleter());
 
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
         getServer().getPluginManager().registerEvents(new PreLoginListener(), this);
@@ -89,7 +99,9 @@ public final class Main extends JavaPlugin {
         this.saveDefaultConfig();
         config = this.getConfig();
         this.ymlManager = new npcYmlManager(this);
+        this.questYml = new questYml(this);
 
+        initializeQuest();
         initializeNPC();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -102,9 +114,26 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         saveNPC();
+        questUtil questUtil = new questUtil();
+        questUtil.saveAllQuest();
         List<NPCPlayer> list = new ArrayList<>(NPCPlayer.getNPCPlayerList());
         for (NPCPlayer player : list) {
             player.removePlayer();
+        }
+    }
+
+    public void initializeQuest() {
+        for (String uuid : questYml.getConfig().getConfigurationSection("quest.").getKeys(false)) {
+            UUID questID = UUID.fromString(uuid);
+            String name = questYml.getConfig().getString("quest." + uuid + ".name");
+            questType type = questType.valueOf(questYml.getConfig().getString("quest." + uuid + ".type"));
+            Object target = questYml.getConfig().get("quest." + uuid + ".target");
+            int goal = questYml.getConfig().getInt("quest." + uuid + ".goal");
+            ItemStack reward = questYml.getConfig().getItemStack("quest." + uuid + ".reward");
+            String description = questYml.getConfig().getString("quest." + uuid + ".description");
+            Quest quest = new Quest(questID, name, type, target, goal, reward, description);
+            questUtil.questList.add(quest);
+            Bukkit.getConsoleSender().sendMessage("Quest loaded / UUID : " + quest.getQuestID() + " Name : " + quest.getQuestName());
         }
     }
 

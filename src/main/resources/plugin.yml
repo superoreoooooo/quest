@@ -6,3 +6,6 @@ commands:
   questnpc:
     aliases:
       - qnpc
+  quest:
+    aliases:
+      - q

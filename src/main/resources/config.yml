@@ -1,5 +1,4 @@
-prefix: "&f[&b상점&f]"
-prefixAcc: "&f[&b계좌&f]"
+prefit: ""
 prefixNpc: "&f[&bNPC&f]"
 
 messages:
