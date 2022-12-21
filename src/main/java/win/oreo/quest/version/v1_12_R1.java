@@ -217,15 +217,11 @@ public class v1_12_R1 {
         }
 
         NPCPlayer.getNPCPlayerList().remove(player);
-        String finalQuitMessage = playerQuitEvent.getQuitMessage();
 
-        if (finalQuitMessage != null && !finalQuitMessage.equals("")) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-                connection.sendPacket(new PacketPlayOutEntityDestroy(entityPlayer.getId()));
-                connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, entityPlayer));
-                p.sendMessage(playerQuitEvent.getQuitMessage());
-            }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
+            connection.sendPacket(new PacketPlayOutEntityDestroy(entityPlayer.getId()));
+            connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, entityPlayer));
         }
 
         try {

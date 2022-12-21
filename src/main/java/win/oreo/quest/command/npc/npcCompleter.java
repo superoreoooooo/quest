@@ -17,8 +17,6 @@ public class npcCompleter implements TabCompleter {
             completions.add("size");
             completions.add("skin");
             completions.add("add");
-            completions.add("open");
-            completions.add("edit");
             completions.add("tp");
             completions.add("remove");
             return completions;
@@ -28,8 +26,6 @@ public class npcCompleter implements TabCompleter {
                 case "size" :
                 case "skin" :
                 case "add" :
-                case "open" :
-                case "edit" :
                 case "tp" :
                     for (NPCPlayer player : NPCPlayer.getNPCPlayerList()) {
                         completions.add(player.getName());

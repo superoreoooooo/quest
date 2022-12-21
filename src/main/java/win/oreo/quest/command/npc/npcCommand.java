@@ -43,35 +43,30 @@ public class npcCommand implements CommandExecutor {
                             setSkin(player, args[1], args[2]);
                             player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.skin", args));
                         }
+                        else {
+                            Bukkit.dispatchCommand(player, "npc");
+                        }
                         break;
                     case "tp" :
                         if (args.length == 2) {
                             teleport(player, args[1]);
                             player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.tp-player", args));
                         }
-                        if (args.length == 5) {
+                        else if (args.length == 5) {
                             if (args[3].equals("~")) teleport(player, args[1], Double.parseDouble(args[2]), player.getLocation().getY(), Double.parseDouble(args[4]));
                             else teleport(player, args[1], Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
                             player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.tp-location", args));
+                        }
+                        else {
+                            Bukkit.dispatchCommand(player, "npc");
                         }
                         break;
                     case "add" :
                         if (args.length == 2) {
                             summon(player, args[1]);
                             player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.add-default", args));
-                        } else if (args.length == 3) {
-                            summon(player, args[1]);
-                            player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.add-modified", args));
                         }
                         else {
-                            Bukkit.dispatchCommand(player, "npc");
-                        }
-                        break;
-                    case "size" :
-                        if (args.length == 3) {
-                            if (Integer.parseInt(args[2]) % 9 != 0) return false;
-                            player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.size", args));
-                        } else {
                             Bukkit.dispatchCommand(player, "npc");
                         }
                         break;
@@ -79,25 +74,17 @@ public class npcCommand implements CommandExecutor {
                         if (args.length == 2) {
                             remove(player, args[1]);
                             player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.remove", args));
-                        } else {
+                        }
+                        else {
                             Bukkit.dispatchCommand(player, "npc");
                         }
                         break;
                     case "list" :
                         if (args.length == 1) {
                             list(player);
-                        } else {
+                        }
+                        else {
                             Bukkit.dispatchCommand(sender, "npc");
-                        }
-                        break;
-                    case "open" :
-                        if (args.length == 2) {
-                            player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.open", args));
-                        }
-                        break;
-                    case "edit" :
-                        if (args.length == 2) {
-                            player.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.edit", args));
                         }
                         break;
                     default:
