@@ -1,4 +1,8 @@
 name: Quest
 version: '${project.version}'
-main: win.oreo.quest.Quest
+main: win.oreo.quest.Main
 author: superoreo
+commands:
+  questnpc:
+    aliases:
+      - qnpc

@@ -75,8 +75,8 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getLogger().info("Detected version : " + version.name());
 
-        getCommand("npc").setExecutor(new npcCommand());
-        getCommand("npc").setTabCompleter(new npcCompleter());
+        getCommand("questnpc").setExecutor(new npcCommand());
+        getCommand("questnpc").setTabCompleter(new npcCompleter());
 
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
         getServer().getPluginManager().registerEvents(new PreLoginListener(), this);

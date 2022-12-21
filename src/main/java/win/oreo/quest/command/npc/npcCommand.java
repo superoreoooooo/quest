@@ -18,8 +18,6 @@ public class npcCommand implements CommandExecutor {
     private NPCPlayer npcPlayer;
     private Main plugin;
 
-    public static List<Player> editorList = new ArrayList<>();
-
     public npcCommand() {
         this.npcPlayer = new NPCPlayer();
         this.plugin = JavaPlugin.getPlugin(Main.class);
@@ -182,9 +180,5 @@ public class npcCommand implements CommandExecutor {
             args[0] = player.getName();
             sender.sendMessage(Main.getConfigMessage(Main.getPlugin().config, "messages.npc.list", args));
         }
-    }
-
-    public boolean checkPermission(CommandSender sender) {
-        return !sender.hasPermission("administrators");
     }
 }
